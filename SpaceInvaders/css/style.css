@@ -1,0 +1,104 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: rgb(247, 247, 247);
+    color: white; /* Cambia el texto a blanco */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.results, .lives {
+    font-size: 16px;
+    color: #e4e4f5; 
+    text-shadow: 2px 2px 0 #ffffff, 4px 4px 0 #eeeef1;
+}
+
+.game-container {
+    border: 5px solid #0000FF;
+    padding: 10px;
+    animation: none;
+    background-image: url("https://i.pinimg.com/736x/a9/fa/05/a9fa05789df8753587320e6914fdf70a.jpg");
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(20, 30px);
+    grid-template-rows: repeat(20, 30px);
+    margin: 0 auto;
+    max-width: 600px; 
+}
+
+
+
+.shooter {
+    background-image: url('img/nave.png'); /* Mantén la imagen de la nave */
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 450px; /* Ajusta el ancho a 450px (tres veces el tamaño anterior de 150px) */
+    height: 450px; /* Ajusta la altura a 450px */
+}
+
+
+
+
+
+.invader {
+    background-image: url('img/alien.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.laser {
+    background-color: rgb(0, 200, 255);
+    height: 10px;
+    width: 5px;
+    transform: scaleX(0.2);
+}
+
+.alien-laser {
+    background-color: red;
+    height: 20px;
+    width: 5px; 
+    transform: scaleX(0.2);
+}
+
+.boom {
+    background-image: url('../img/explosion.gif');
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+}
+
+.message {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 32px;
+    color: white;
+    text-shadow: 2px 2px 0 #f9f9ff, 4px 4px 0 #ffffff; 
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
