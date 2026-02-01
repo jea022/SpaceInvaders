@@ -2,120 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Invaders</title>
-    <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Press Start 2P', cursive;
-            background-color: rgb(255, 255, 255);
-            color: #ffffff; /* Azul para las letras */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .info {
-            display: flex;
-            justify-content: space-between;
-            width: 300px;
-            margin-bottom: 20px;
-        }
-
-        .results, .lives {
-            font-size: 16px;
-            color: #0000FF; /* Cambio a azul */
-            text-shadow: 2px 2px 0 #0000FF, 4px 4px 0 #0000FF; /* Sombra de texto azul */
-        }
-
-        .game-container {
-            border: 5px solid #0000FF; /* Borde azul */
-            padding: 10px;
-            animation: none; /* Elimina la animación del cambio de color */
-        }
-
-        .grid {
-            background-color: #000022;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: top center;
-            width: 100%;
-            height: auto;
-            display: grid;
-            grid-template-columns: repeat(20, 30px);
-            grid-template-rows: repeat(20, 30px);
-            margin: 0 auto;
-            max-width: 600px; /* Ajusta el ancho máximo del contenedor */
-        }
-
-        .shooter {
-            background-image: url('img/nave.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-
-        .invader {
-            background-image: url('img/alien.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-
-        .laser {
-            background-color: rgb(0, 200, 255);
-            height: 10px;
-            width: 5px;
-            transform: scaleX(0.2);
-        }
-
-        .alien-laser {
-            background-color: red;
-            height: 20px;
-            width: 5px; /* Ajusta el ancho del láser de los alienígenas */
-            transform: scaleX(0.2);
-        }
-
-        .boom {
-            background-image: url('../img/explosion.gif');
-            background-size: cover;
-            height: 20px;
-            width: 20px;
-        }
-
-        .message {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            font-size: 32px;
-            color: white;
-            text-shadow: 2px 2px 0 #0000FF, 4px 4px 0 #0000FF; /* Sombra azul */
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .visible {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="info">
-        <div class="results">Score: 0</div>
-        <div class="lives">Lives: 3</div>
-    </div>
-    
-    <div class="game-container">
-        <div class="grid"></div>
+    <!-- Fondo de estrellas animado -->
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+
+    <!-- Pantalla de inicio -->
+    <div class="start-screen" id="start-screen">
+        <h1 class="title">SPACE<br>INVADERS</h1>
+        <p class="subtitle">Press PLAY to start</p>
+        <button class="play-btn" id="play-btn">▶ PLAY</button>
+        <div class="high-score-display">
+            <span>🏆 HIGH SCORE: </span>
+            <span id="high-score-value">0</span>
+        </div>
+        <div class="controls-info">
+            <p>← → ↑ ↓ Move</p>
+            <p>SPACE Shoot</p>
+        </div>
     </div>
 
-    <div class="message hidden" id="game-message"></div>
+    <!-- Juego -->
+    <div class="game-wrapper hidden" id="game-wrapper">
+        <div class="info">
+            <div class="score-section">
+                <span class="label">SCORE</span>
+                <span class="results" id="score">0</span>
+            </div>
+            <div class="level-section">
+                <span class="label">LEVEL</span>
+                <span class="level" id="level">1</span>
+            </div>
+            <div class="lives-section">
+                <span class="label">LIVES</span>
+                <div class="lives" id="lives">
+                    <span class="heart">❤️</span>
+                    <span class="heart">❤️</span>
+                    <span class="heart">❤️</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-container">
+            <div class="grid" id="grid"></div>
+        </div>
+
+        <div class="message hidden" id="game-message">
+            <div class="message-text" id="message-text"></div>
+            <button class="restart-btn hidden" id="restart-btn">🔄 PLAY AGAIN</button>
+        </div>
+    </div>
+
+    <!-- Audio elements -->
+    <audio id="sound-shoot" preload="auto">
+        <source src="https://www.soundjay.com/buttons/sounds/button-09a.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-explosion" preload="auto">
+        <source src="https://www.soundjay.com/mechanical/sounds/explosion-01.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-hit" preload="auto">
+        <source src="https://www.soundjay.com/buttons/sounds/button-10.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-gameover" preload="auto">
+        <source src="https://www.soundjay.com/misc/sounds/fail-trombone-02.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-win" preload="auto">
+        <source src="https://www.soundjay.com/misc/sounds/magic-chime-02.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-levelup" preload="auto">
+        <source src="https://www.soundjay.com/misc/sounds/magic-chime-01.mp3" type="audio/mpeg">
+    </audio>
 
     <script src="js/app.js"></script>
 </body>
