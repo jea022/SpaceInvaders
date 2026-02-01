@@ -36,14 +36,6 @@ function draw() {
     }
 }
 
-function draw() {
-    for (let i = 0; i < alienInvaders.length; i++) {
-        if (!aliensRemoved.includes(i)) {
-            squares[alienInvaders[i]].classList.add("invader");
-        }
-    }
-}
-
 draw();
 
 squares[currentShooterIndex].classList.add("shooter");
@@ -184,8 +176,8 @@ function alienShoot() {
         let laserId = setInterval(moveLaser, 100);
     }
 }
-    
-setInterval(addNewInvader, 5000);
+
+let alienLaserId;
 
 function startAlienShooting() {
     const randomInterval = Math.random() * 2000 + 1000;
